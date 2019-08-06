@@ -1,0 +1,13 @@
+server.port: 8091
+spring:
+  application.name: account-service
+  jackson.default-property-inclusion: NON_NULL
+
+management.endpoints.web.exposure.include: '*'
+logging.level.me.jhwang.reactivespringcloud.MyFeignClass: DEBUG
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka
+
+feign.compression:
+    request.enabled: true
+    response.enabled: true
+

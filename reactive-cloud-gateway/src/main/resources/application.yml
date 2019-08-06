@@ -1,0 +1,42 @@
+
+server:
+  port: 9000
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: account_route
+        uri: lb://account-service
+        predicates:
+        - Path=/account/**
+        filters:
+        - RewritePath=/account/(?<segment>.*), /$\{segment}
+      - id: customer_route
+        uri: lb://customer-service
+        predicates:
+          - Path=/customer/**, /customers/**
+#          - Path=/customers/**
+        filters:
+          - AddResponseHeader=X-Some-Header, "HAHAHAH"
+#        - RewritePath=/customer/(?.*), /$\{path}
+#        - RewritePath=/customers/(?.*), /$\{path}
+      discovery:
+        locator:
+          enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level.me.jhwang: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

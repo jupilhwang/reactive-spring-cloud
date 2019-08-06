@@ -1,0 +1,4 @@
+
+microservice:
+  example:
+    greetings: "Hello for the greetings application"
